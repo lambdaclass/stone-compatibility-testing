@@ -407,28 +407,27 @@ void StarkProver::ValidateFirstTraceSize(const size_t n_rows,
                  "Trace width parameter inconsistent with actual trace width.");
 }
 
-void PrintTrace(Trace trace) {
-  const size_t length = trace.Length();
-  const size_t width = trace.Width();
+// void PrintTrace(Trace trace) {
+//   const size_t height = trace.Length();
+//   const size_t width = trace.Width();
 
-  const std::vector<gsl::span<const FieldElementT>> trace_as =
-      trace.As<FieldElementT>();
+//   const std::vector<gsl::span<const FieldElement>> trace_as =
+//       trace.As<FieldElement>();
 
-  for (size_t j = 0; j < height; j++) {
-    printf("ROW NUMBER %d\n", j);
-    for (size_t i = 0; i < width; ++i) {
-      printf("%s\n", trace_as[i][j].ToString());
-      trace.GetColumn(i)[j].As<FieldElementT>(), trace_vals_saved[i][j];
-    }
-  }
-}
+//   for (size_t j = 0; j < height; j++) {
+//     printf("ROW NUMBER %d\n", j);
+//     for (size_t i = 0; i < width; ++i) {
+//       printf("%s\n", trace_as[i][j].ToString().c_str());
+//     }
+//   }
+// }
 
 void StarkProver::ProveStark(std::unique_ptr<TraceContext> trace_context) {
   // First trace.
   ProfilingBlock profiling_block("Trace generation");
   Trace trace = trace_context->GetTrace();
 
-  PrintTrace(trace);
+  trace.PrintTrace();
 
   profiling_block.CloseBlock();
 

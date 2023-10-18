@@ -23,17 +23,18 @@
 namespace starkware {
 
 class Trace {
- public:
-  Trace(const Trace&) = delete;
-  Trace(Trace&&) = default;
+public:
+  Trace(const Trace &) = delete;
+  Trace(Trace &&) = default;
   ~Trace() = default;
-  Trace& operator=(const Trace&) = default;
-  Trace& operator=(Trace&&) = default;
+  Trace &operator=(const Trace &) = default;
+  Trace &operator=(Trace &&) = default;
 
   template <typename FieldElementT>
-  explicit Trace(std::vector<std::vector<FieldElementT>>&& values) {
-    for (auto& column : values) {
-      values_.emplace_back(FieldElementVector::Make<FieldElementT>(std::move(column)));
+  explicit Trace(std::vector<std::vector<FieldElementT>> &&values) {
+    for (auto &column : values) {
+      values_.emplace_back(
+          FieldElementVector::Make<FieldElementT>(std::move(column)));
     }
   }
 
@@ -41,7 +42,8 @@ class Trace {
     Allocates a vector of values that may be passed to the constructor.
   */
   template <typename FieldElementT>
-  static std::vector<std::vector<FieldElementT>> Allocate(size_t n_columns, size_t trace_length) {
+  static std::vector<std::vector<FieldElementT>> Allocate(size_t n_columns,
+                                                          size_t trace_length) {
     std::vector<std::vector<FieldElementT>> values;
     values.reserve(n_columns);
     for (size_t col = 0; col < n_columns; col++) {
@@ -53,7 +55,7 @@ class Trace {
   static Trace CopyFrom(gsl::span<const ConstFieldElementSpan> values) {
     Trace trace;
     trace.values_.reserve(values.size());
-    for (auto& column : values) {
+    for (auto &column : values) {
       trace.values_.emplace_back(FieldElementVector::CopyFrom(column));
     }
     return trace;
@@ -62,20 +64,52 @@ class Trace {
   Trace Clone() {
     Trace trace;
     trace.values_.reserve(values_.size());
-    for (auto& column : values_) {
+    for (auto &column : values_) {
       trace.values_.emplace_back(FieldElementVector::CopyFrom(column));
     }
     return trace;
   }
 
+  void PrintTrace() {
+    const size_t height = values_[0].Size();
+    const size_t width = values_.size();
+
+    for (size_t j = 0; j < height; j++) {
+      printf("ROW NUMBER %zu\n", j);
+      for (size_t i = 0; i < width; ++i) {
+        printf("%s\n", values_[i][j].ToString().c_str());
+      }
+    }
+  }
+
+  // void PrintTrace(Trace trace) {
+  //   const size_t height = trace.Length();
+  //   const size_t width = trace.Width();
+
+  //   const std::vector<gsl::span<const FieldElement>> trace_as =
+  //       trace.As<FieldElement>();
+
+  //   for (size_t j = 0; j < height; j++) {
+  //     printf("ROW NUMBER %d\n", j);
+  //     for (size_t i = 0; i < width; ++i) {
+  //       printf("%s\n", trace_as[i][j].ToString().c_str());
+  //     }
+  //   }
+  // }
+
   size_t Length() const { return values_[0].Size(); }
 
   size_t Width() const { return values_.size(); }
-  const FieldElementVector& GetColumn(size_t column) const { return values_[column]; }
+  const FieldElementVector &GetColumn(size_t column) const {
+    return values_[column];
+  }
 
-  std::vector<FieldElementVector> ConsumeAsColumnsVector() && { return std::move(values_); }
+  std::vector<FieldElementVector> ConsumeAsColumnsVector() && {
+    return std::move(values_);
+  }
 
-  void SetTraceElementForTesting(size_t column, size_t index, const FieldElement& field_element) {
+  void SetTraceElementForTesting(size_t column, size_t index,
+                                 const FieldElement &field_element) {
     values_[column].Set(index, field_element);
   }
 
@@ -83,18 +117,18 @@ class Trace {
   std::vector<gsl::span<const FieldElementT>> As() const {
     std::vector<gsl::span<const FieldElementT>> result;
     result.reserve(values_.size());
-    for (const FieldElementVector& v : values_) {
+    for (const FieldElementVector &v : values_) {
       result.push_back(gsl::make_span(v.As<FieldElementT>()));
     }
     return result;
   }
 
- private:
+private:
   Trace() = default;
 
   std::vector<FieldElementVector> values_;
 };
 
-}  // namespace starkware
+} // namespace starkware
 
-#endif  // STARKWARE_AIR_TRACE_H_
+#endif // STARKWARE_AIR_TRACE_H_
