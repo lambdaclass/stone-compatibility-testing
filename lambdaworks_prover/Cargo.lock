@@ -162,7 +162,7 @@ dependencies = [
 [[package]]
 name = "lambdaworks-crypto"
 version = "0.2.0"
-source = "git+https://github.com/lambdaclass/lambdaworks?rev=255cd8650db0626e595afcd0ca6cc4069a07cc5a#255cd8650db0626e595afcd0ca6cc4069a07cc5a"
+source = "git+https://github.com/lambdaclass/lambdaworks?rev=6645ea6#6645ea62de31e4ee47f58232db92a1f08a10cd9c"
 dependencies = [
  "lambdaworks-math",
  "serde",
@@ -174,7 +174,7 @@ dependencies = [
 [[package]]
 name = "lambdaworks-math"
 version = "0.2.0"
-source = "git+https://github.com/lambdaclass/lambdaworks?rev=255cd8650db0626e595afcd0ca6cc4069a07cc5a#255cd8650db0626e595afcd0ca6cc4069a07cc5a"
+source = "git+https://github.com/lambdaclass/lambdaworks?rev=6645ea6#6645ea62de31e4ee47f58232db92a1f08a10cd9c"
 dependencies = [
  "rayon",
  "serde",
@@ -381,7 +381,7 @@ dependencies = [
 [[package]]
 name = "stark-platinum-prover"
 version = "0.2.0"
-source = "git+https://github.com/lambdaclass/lambdaworks?rev=255cd8650db0626e595afcd0ca6cc4069a07cc5a#255cd8650db0626e595afcd0ca6cc4069a07cc5a"
+source = "git+https://github.com/lambdaclass/lambdaworks?rev=6645ea6#6645ea62de31e4ee47f58232db92a1f08a10cd9c"
 dependencies = [
  "bincode",
  "itertools",
