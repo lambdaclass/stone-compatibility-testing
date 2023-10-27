@@ -18,7 +18,6 @@ You should have docker installed (see https://docs.docker.com/get-docker/).
 Build the docker image:
 
 ```bash
-cd stone-prover
 docker build --tag stone-prover-test-cases .
 ```
 
