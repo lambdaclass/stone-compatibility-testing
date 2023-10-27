@@ -41,7 +41,7 @@ RUN make -j8
 
 #### Copy script to create a bad proof with Lambdaworks and verify with Stone ####
 COPY verify_bad_proof_stone.sh /app
-RUN chmod +x /app/prove_lambdaworks_verify_stone.sh
+RUN chmod +x /app/verify_bad_proof_stone.sh
 
 #### Copy script to create proof with Lambdaworks and verify with Stone ####
 COPY prove_lambdaworks_verify_stone.sh /app
