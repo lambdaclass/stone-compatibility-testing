@@ -37,7 +37,7 @@ Test case 2 (output [here](fibonacci_air_test_cases/case_2_output.txt)):
 docker run --rm stone-prover-test-cases ./case_2
 ```
 
-Prove with Lambdaworks and verify with Stone for case 1:
+Prove with Lambdaworks and verify with Stone:
 ```bash
 docker run --rm stone-prover-test-cases bash /app/prove_lambdaworks_verify_stone.sh
 ```
