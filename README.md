@@ -8,9 +8,9 @@ This fork has been created by Lambdaclass to show Stark Platinum compatibility w
 
 We thank Starkware for creating and open sourcing Stone.
 
-# Installation instructions
+# Usage guide
 
-## Building using the dockerfile
+## Building and using with Docker
 
 The root directory contains a dedicated Dockerfile which automatically compiles everything.
 You should have docker installed (see https://docs.docker.com/get-docker/).
@@ -22,7 +22,20 @@ docker build --tag stone-prover-test-cases .
 ```
 
 This will compile stone prover and add a few test cases for the Fibonacci AIR.
-Once the docker image is built, you can run the test cases.
+
+Once the docker image you can prove with Lambdaworks and verify with stone using:
+
+```bash
+docker run --rm stone-prover-test-cases bash /app/prove_lambdaworks_verify_stone.sh
+```
+
+For comparison, this script verifies with stone a bad proof:
+
+```bash
+docker run --rm stone-prover-test-cases bash /app/verify_bad_proof_stone.sh
+```
+
+Test cases can be run with:
 
 Test case 1 (output [here](fibonacci_air_test_cases/case_1_output.txt)):
 
@@ -34,11 +47,6 @@ Test case 2 (output [here](fibonacci_air_test_cases/case_2_output.txt)):
 
 ```bash
 docker run --rm stone-prover-test-cases ./case_2
-```
-
-Prove with Lambdaworks and verify with Stone:
-```bash
-docker run --rm stone-prover-test-cases bash /app/prove_lambdaworks_verify_stone.sh
 ```
 
 ## Annotations description
